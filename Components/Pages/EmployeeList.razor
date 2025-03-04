@@ -1,0 +1,50 @@
+﻿@page "/EmployeeList"
+@inject EmployeeService employeeService
+
+
+<h3>EmployeeList</h3>
+
+<span>This will show the employee data</span>
+
+@if (employees == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Gender</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var emp in employees)
+            {
+                <tr>
+                    <td>@emp.FirstName</td>
+                    <td>@emp.LastName</td>
+                    <td>@emp.Gender</td>
+                    <td>@emp.Age</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+
+@code {
+    List<Employee> employees;
+
+    protected override async Task OnInitializedAsync()
+    {
+        employees = await employeeService.GetAllEmployee();
+
+    }
+
+}
